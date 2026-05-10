@@ -58,7 +58,27 @@ docker-compose exec app php artisan migrate --seed
 
 ## ER図
 
-![ER図](er_diagram.png)
+ER図は [er_diagram.html](er_diagram.html) を参照してください。
+
+```
+categories          contacts              users
+──────────          ──────────────        ──────────
+id (PK)        ┌── id (PK)               id (PK)
+content        │   category_id (FK) ──┐  name
+created_at     │   first_name         │  email
+updated_at     └── last_name          │  password
+                   gender             │  created_at
+                   email              │  updated_at
+                   tel                │
+                   address            │
+                   building           │
+                   detail             │
+                   created_at         │
+                   updated_at         │
+                                      │
+categories ←──────────────────────────┘
+（1対多）
+```
 
 ```
 categories
