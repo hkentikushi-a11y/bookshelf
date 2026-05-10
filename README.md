@@ -1,6 +1,6 @@
 # FashionablyLate お問い合わせフォーム
 
-COACHTECHの確認テスト用Laravelアプリケーションです。
+COACHTECHの確認テスト用アプリケーションです。
 
 ## 使用技術
 
