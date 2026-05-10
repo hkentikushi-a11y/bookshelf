@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ER図 - FashionablyLate</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .mermaid {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>ER図</h1>
+    <div class="mermaid">
+erDiagram
+    categories {
+        bigint(unsigned) id PK
+        varchar(255) content
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    contacts {
+        bigint(unsigned) id PK
+        bigint(unsigned) category_id FK
+        varchar(255) first_name
+        varchar(255) last_name
+        tinyint gender
+        varchar(255) email
+        varchar(255) tel
+        varchar(255) address
+        varchar(255) building
+        text detail
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    users {
+        bigint(unsigned) id PK
+        varchar(255) name
+        varchar(255) email
+        varchar(255) password
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    categories ||--o{ contacts : "1対多"
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>
