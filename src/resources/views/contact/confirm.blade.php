@@ -91,39 +91,35 @@
     </table>
 
     <div class="confirm-actions">
+        {{-- 送信フォーム --}}
         <form action="{{ route('contact.store') }}" method="POST">
             @csrf
-            @foreach ($input as $key => $value)
-                @if ($key === 'tel')
-                    <input type="hidden" name="tel" value="{{ $value }}">
-                @else
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                @endif
-            @endforeach
+            <input type="hidden" name="category_id" value="{{ $input['category_id'] }}">
+            <input type="hidden" name="first_name" value="{{ $input['first_name'] }}">
+            <input type="hidden" name="last_name" value="{{ $input['last_name'] }}">
+            <input type="hidden" name="gender" value="{{ $input['gender'] }}">
+            <input type="hidden" name="email" value="{{ $input['email'] }}">
+            <input type="hidden" name="tel" value="{{ $input['tel'] }}">
+            <input type="hidden" name="address" value="{{ $input['address'] }}">
+            <input type="hidden" name="building" value="{{ $input['building'] ?? '' }}">
+            <input type="hidden" name="detail" value="{{ $input['detail'] }}">
             <button type="submit" class="btn btn-primary">送信</button>
         </form>
 
+        {{-- 修正フォーム --}}
         <form action="{{ route('contact.back') }}" method="POST">
             @csrf
-            @foreach ($input as $key => $value)
-                @if ($key === 'tel')
-                    @php
-                        $telParts = str_split($value, strlen($value) > 10 ? (strlen($value) - 8) : 3);
-                    @endphp
-                @else
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                @endif
-            @endforeach
-            {{-- tel を3分割して渡す --}}
-            @php
-                $tel = $input['tel'];
-                $tel1 = substr($tel, 0, 3);
-                $tel2 = substr($tel, 3, 4);
-                $tel3 = substr($tel, 7);
-            @endphp
-            <input type="hidden" name="tel_1" value="{{ $tel1 }}">
-            <input type="hidden" name="tel_2" value="{{ $tel2 }}">
-            <input type="hidden" name="tel_3" value="{{ $tel3 }}">
+            <input type="hidden" name="category_id" value="{{ $input['category_id'] }}">
+            <input type="hidden" name="first_name" value="{{ $input['first_name'] }}">
+            <input type="hidden" name="last_name" value="{{ $input['last_name'] }}">
+            <input type="hidden" name="gender" value="{{ $input['gender'] }}">
+            <input type="hidden" name="email" value="{{ $input['email'] }}">
+            <input type="hidden" name="tel_1" value="{{ $input['tel_1'] }}">
+            <input type="hidden" name="tel_2" value="{{ $input['tel_2'] }}">
+            <input type="hidden" name="tel_3" value="{{ $input['tel_3'] }}">
+            <input type="hidden" name="address" value="{{ $input['address'] }}">
+            <input type="hidden" name="building" value="{{ $input['building'] ?? '' }}">
+            <input type="hidden" name="detail" value="{{ $input['detail'] }}">
             <button type="submit" class="btn btn-secondary">修正</button>
         </form>
     </div>
