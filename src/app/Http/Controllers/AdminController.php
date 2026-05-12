@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
@@ -27,7 +26,7 @@ class AdminController extends Controller
             $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
 
-        if ($request->filled('gender') && $request->gender !== '0') {
+        if ($request->filled('gender') && $request->gender !== '0' && $request->gender !== '') {
             $query->where('gender', $request->gender);
         }
 
@@ -69,7 +68,7 @@ class AdminController extends Controller
             $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
 
-        if ($request->filled('gender') && $request->gender !== '0') {
+        if ($request->filled('gender') && $request->gender !== '0' && $request->gender !== '') {
             $query->where('gender', $request->gender);
         }
 
@@ -88,19 +87,22 @@ class AdminController extends Controller
             'Content-Disposition' => 'attachment; filename="contacts.csv"',
         ];
 
-        $response = new StreamedResponse(function () use ($contacts) {
-            $handle = fopen('php://output', 'w');
-            fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
-            fputcsv($handle, ['ID', '名前', '性別', 'メールアドレス', '電話番号', '住所', '建物名', 'お問い合わせの種類', 'お問い合わせ内容', '登録日時']);
+        $callback = function () use ($contacts) {
+            $file = fopen('php://output', 'w');
+            // BOM（ExcelでのCSV文字化け防止）
+            fputs($file, "\xEF\xBB\xBF");
+            fputcsv($file, ['ID', '名前', '性別', 'メールアドレス', '電話番号', '住所', '建物名', 'お問い合わせの種類', 'お問い合わせ内容', '登録日時']);
 
             foreach ($contacts as $contact) {
-                $genderLabel = match ($contact->gender) {
-                    1 => '男性',
-                    2 => '女性',
-                    3 => 'その他',
-                    default => '',
-                };
-                fputcsv($handle, [
+                if ($contact->gender == 1) {
+                    $genderLabel = '男性';
+                } elseif ($contact->gender == 2) {
+                    $genderLabel = '女性';
+                } else {
+                    $genderLabel = 'その他';
+                }
+
+                fputcsv($file, [
                     $contact->id,
                     $contact->first_name . ' ' . $contact->last_name,
                     $genderLabel,
@@ -113,9 +115,9 @@ class AdminController extends Controller
                     $contact->created_at,
                 ]);
             }
-            fclose($handle);
-        }, 200, $headers);
+            fclose($file);
+        };
 
-        return $response;
+        return response()->stream($callback, 200, $headers);
     }
 }

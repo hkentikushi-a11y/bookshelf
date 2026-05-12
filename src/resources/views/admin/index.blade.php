@@ -177,7 +177,7 @@
             value="{{ request('name') }}" style="width:260px;">
 
         <select name="gender">
-            <option value="0" {{ request('gender', '0') === '0' ? 'selected' : '' }}>性別</option>
+            <option value="" {{ request('gender') === null ? 'selected' : '' }}>性別</option>
             <option value="0" {{ request('gender') === '0' ? 'selected' : '' }}>全て</option>
             <option value="1" {{ request('gender') === '1' ? 'selected' : '' }}>男性</option>
             <option value="2" {{ request('gender') === '2' ? 'selected' : '' }}>女性</option>
