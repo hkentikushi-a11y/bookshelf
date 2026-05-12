@@ -13,17 +13,14 @@ class AdminController extends Controller
         $query = Contact::with('category');
 
         if ($request->filled('name')) {
-            $name = $request->name;
-            $query->where(function ($q) use ($name) {
-                $q->where('first_name', 'LIKE', '%' . $name . '%')
-                  ->orWhere('last_name', 'LIKE', '%' . $name . '%')
-                  ->orWhereRaw("CONCAT(first_name, last_name) LIKE ?", ['%' . $name . '%'])
-                  ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $name . '%']);
+            $search = $request->name;
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                  ->orWhereRaw("CONCAT(first_name, last_name) LIKE ?", ['%' . $search . '%'])
+                  ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $search . '%'])
+                  ->orWhere('email', 'LIKE', '%' . $search . '%');
             });
-        }
-
-        if ($request->filled('email')) {
-            $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
 
         if ($request->filled('gender') && $request->gender !== '0' && $request->gender !== '') {
@@ -55,17 +52,14 @@ class AdminController extends Controller
         $query = Contact::with('category');
 
         if ($request->filled('name')) {
-            $name = $request->name;
-            $query->where(function ($q) use ($name) {
-                $q->where('first_name', 'LIKE', '%' . $name . '%')
-                  ->orWhere('last_name', 'LIKE', '%' . $name . '%')
-                  ->orWhereRaw("CONCAT(first_name, last_name) LIKE ?", ['%' . $name . '%'])
-                  ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $name . '%']);
+            $search = $request->name;
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                  ->orWhereRaw("CONCAT(first_name, last_name) LIKE ?", ['%' . $search . '%'])
+                  ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $search . '%'])
+                  ->orWhere('email', 'LIKE', '%' . $search . '%');
             });
-        }
-
-        if ($request->filled('email')) {
-            $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
 
         if ($request->filled('gender') && $request->gender !== '0' && $request->gender !== '') {
