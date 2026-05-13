@@ -76,12 +76,6 @@
                 @enderror
             </div>
 
-            @if ($errors->has('email') && old('password'))
-                <p class="error-message" style="text-align:center; margin-bottom:10px;">
-                    ログイン情報が登録されていません
-                </p>
-            @endif
-
             <div class="auth-submit">
                 <button type="submit" class="btn btn-primary">ログイン</button>
             </div>
