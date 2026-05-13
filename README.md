@@ -19,27 +19,43 @@ git clone <リポジトリURL>
 cd coachtech-contact
 ```
 
-### 2. Dockerコンテナのビルドと起動
+### 2. .envファイルの作成
+
+```bash
+cp src/.env.example src/.env
+```
+
+### 3. Dockerコンテナのビルドと起動
 
 ```bash
 docker-compose up -d --build
 ```
 
-### 3. アプリケーションキーの生成
+### 4. composerパッケージのインストール
+
+```bash
+docker-compose exec app composer install
+```
+
+### 5. アプリケーションキーの生成
 
 ```bash
 docker-compose exec app php artisan key:generate
 ```
 
-### 4. マイグレーションとシーディング
+### 6. マイグレーションとシーディング
 
 ```bash
 docker-compose exec app php artisan migrate --seed
 ```
 
-### 5. アクセス
+### 7. アクセス
 
-ブラウザで `http://localhost` にアクセスしてください。
+| URL | 説明 |
+|-----|------|
+| http://localhost | お問い合わせフォーム |
+| http://localhost/register | 管理者アカウント登録 |
+| http://localhost:8080 | phpMyAdmin |
 
 ---
 
@@ -57,8 +73,6 @@ docker-compose exec app php artisan migrate --seed
 | エクスポート | /export | CSV出力（要ログイン） |
 
 ## ER図
-
-ER図は [er_diagram.html](er_diagram.html) を参照してください。
 
 ```
 categories          contacts              users
