@@ -85,6 +85,7 @@
             </div>
 
             <div class="auth-group">
+                <label>パスワード（確認）</label>
                 <input type="password" name="password_confirmation" placeholder="パスワード（確認）">
             </div>
 
