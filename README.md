@@ -55,7 +55,6 @@ docker-compose exec app php artisan migrate --seed
 |-----|------|
 | http://localhost | お問い合わせフォーム |
 | http://localhost/register | 管理者アカウント登録 |
-| http://localhost:8080 | phpMyAdmin |
 
 ---
 
