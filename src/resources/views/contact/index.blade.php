@@ -180,15 +180,13 @@
                     <span>-</span>
                     <input type="text" name="tel_3" placeholder="5678" maxlength="5" value="{{ old('tel_3', $input['tel_3'] ?? '') }}" style="width:80px;">
                 </div>
-                @error('tel_1')
-                    <p class="error-message">{{ $message }}</p>
-                @enderror
-                @error('tel_2')
-                    <p class="error-message">{{ $message }}</p>
-                @enderror
-                @error('tel_3')
-                    <p class="error-message">{{ $message }}</p>
-                @enderror
+                @if ($errors->has('tel_1'))
+                    <p class="error-message">{{ $errors->first('tel_1') }}</p>
+                @elseif ($errors->has('tel_2'))
+                    <p class="error-message">{{ $errors->first('tel_2') }}</p>
+                @elseif ($errors->has('tel_3'))
+                    <p class="error-message">{{ $errors->first('tel_3') }}</p>
+                @endif
             </div>
         </div>
 
