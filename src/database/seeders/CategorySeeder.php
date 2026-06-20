@@ -10,15 +10,20 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            '商品のお届けについて',
-            '商品の交換について',
-            '商品トラブル',
-            'ショップへのお問い合わせ',
+            'メンズ',
+            'レディース',
+            'キッズ',
+            'インテリア・住まい・小物',
+            '本・音楽・ゲーム',
+            'おもちゃ・ホビー・グッズ',
+            '家電・スマホ・カメラ',
+            'スポーツ・レジャー',
+            'ハンドメイド',
             'その他',
         ];
 
-        foreach ($categories as $content) {
-            Category::create(['content' => $content]);
+        foreach ($categories as $name) {
+            Category::create(['name' => $name]);
         }
     }
 }

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-        'content',
+        'name',
     ];
 
-    public function contacts()
+    public function items()
     {
-        return $this->hasMany(Contact::class);
+        return $this->belongsToMany(Item::class, 'item_category')->withTimestamps();
     }
 }

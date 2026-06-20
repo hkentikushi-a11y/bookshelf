@@ -2,63 +2,120 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ER図 - FashionablyLate</title>
+    <title>ER図 - coachtechフリマ</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         body {
             font-family: sans-serif;
-            background: #fff;
+            background: #f5f5f5;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 40px;
         }
         h1 {
-            font-size: 20px;
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+        p {
+            font-size: 13px;
+            color: #666;
             margin-bottom: 30px;
-            color: #333;
         }
         .mermaid {
             background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <h1>ER図</h1>
+    <h1>ER図 - coachtechフリマ</h1>
+    <p>テーブル数：7（users / items / categories / item_category / likes / comments / purchases）</p>
     <div class="mermaid">
 erDiagram
-    categories {
-        bigint(unsigned) id PK
-        varchar(255) content
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    contacts {
-        bigint(unsigned) id PK
-        bigint(unsigned) category_id FK
-        varchar(255) first_name
-        varchar(255) last_name
-        tinyint gender
-        varchar(255) email
-        varchar(255) tel
-        varchar(255) address
-        varchar(255) building
-        text detail
-        timestamp created_at
-        timestamp updated_at
-    }
-
     users {
-        bigint(unsigned) id PK
-        varchar(255) name
-        varchar(255) email
-        varchar(255) password
+        bigint id PK
+        varchar name
+        varchar email UK
+        timestamp email_verified_at
+        varchar password
+        varchar profile_image
+        varchar postcode
+        varchar address
+        varchar building
         timestamp created_at
         timestamp updated_at
     }
 
-    categories ||--o{ contacts : "1対多"
+    items {
+        bigint id PK
+        bigint user_id FK
+        varchar name
+        varchar brand
+        text description
+        integer price
+        varchar condition
+        varchar image
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    categories {
+        bigint id PK
+        varchar name
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    item_category {
+        bigint id PK
+        bigint item_id FK
+        bigint category_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    likes {
+        bigint id PK
+        bigint user_id FK
+        bigint item_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    comments {
+        bigint id PK
+        bigint user_id FK
+        bigint item_id FK
+        text content
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    purchases {
+        bigint id PK
+        bigint user_id FK
+        bigint item_id FK "UK"
+        varchar payment_method
+        varchar postcode
+        varchar address
+        varchar building
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    users ||--o{ items : "出品する"
+    users ||--o{ likes : "いいねする"
+    users ||--o{ comments : "コメントする"
+    users ||--o{ purchases : "購入する"
+    items ||--o{ item_category : "紐づく"
+    categories ||--o{ item_category : "紐づく"
+    items ||--o{ likes : "いいねされる"
+    items ||--o{ comments : "コメントされる"
+    items ||--o| purchases : "購入される"
     </div>
 
     <script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FashionablyLate</title>
+    <title>coachtechフリマ</title>
     <style>
         * {
             margin: 0;
@@ -33,6 +33,12 @@
             letter-spacing: 1px;
         }
 
+        header nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
         header nav a {
             font-size: 14px;
             color: #555;
@@ -43,6 +49,22 @@
         }
 
         header nav a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+
+        header nav form button {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            border: 1px solid #555;
+            padding: 6px 16px;
+            border-radius: 3px;
+            background: none;
+            cursor: pointer;
+        }
+
+        header nav form button:hover {
             background-color: #555;
             color: #fff;
         }
@@ -91,7 +113,7 @@
 </head>
 <body>
     <header>
-        <h1>FashionablyLate</h1>
+        <h1>coachtechフリマ</h1>
         <nav>
             @yield('header-nav')
         </nav>

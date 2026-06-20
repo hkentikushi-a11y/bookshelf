@@ -1,37 +1,31 @@
-# FashionablyLate お問い合わせフォーム
+# coachtechフリマ
 
-COACHTECHの確認テスト用アプリケーションです。
+## アプリケーション概要
 
-## 使用技術
-
-- PHP 8.4
-- Laravel 13
-- MySQL 8.0
-- Nginx 1.21
-- Docker / Docker Compose
+ある企業が独自に開発したフリマアプリです。商品の出品・購入・いいね・コメント機能を備えています。
 
 ## 環境構築
 
 ### 1. リポジトリのクローン
 
 ```bash
-git clone <リポジトリURL>
-cd coachtech-contact
+git clone https://github.com/hkentikushi-a11y/coachtech-furima.git
+cd coachtech-furima
 ```
 
-### 2. .envファイルの作成
+### 2. .env ファイルの作成
 
 ```bash
 cp src/.env.example src/.env
 ```
 
-### 3. Dockerコンテナのビルドと起動
+### 3. Docker コンテナのビルドと起動
 
 ```bash
 docker-compose up -d --build
 ```
 
-### 4. composerパッケージのインストール
+### 4. パッケージのインストール
 
 ```bash
 docker-compose exec app composer install
@@ -49,78 +43,24 @@ docker-compose exec app php artisan key:generate
 docker-compose exec app php artisan migrate --seed
 ```
 
-### 7. アクセス
+## 使用技術（実行環境）
+
+- PHP 8.3
+- Laravel 13
+- MySQL 8.0
+- Nginx 1.21
+- Docker / Docker Compose
+
+## 開発環境
 
 | URL | 説明 |
 |-----|------|
-| http://localhost | お問い合わせフォーム |
-| http://localhost/register | 管理者アカウント登録 |
-
----
-
-## 機能一覧
-
-| 画面 | パス | 説明 |
-|------|------|------|
-| お問い合わせフォーム入力ページ | / | お問い合わせフォームの入力 |
-| お問い合わせフォーム確認ページ | /confirm | 入力内容の確認 |
-| サンクスページ | /thanks | 送信完了 |
-| 管理画面 | /admin | お問い合わせ一覧（要ログイン） |
-| ユーザー登録 | /register | 管理者アカウント登録 |
-| ログイン | /login | 管理者ログイン |
-| ログアウト | /logout | ログアウト |
-| エクスポート | /export | CSV出力（要ログイン） |
+| http://localhost | 商品一覧（トップ画面） |
+| http://localhost/register | 会員登録 |
+| http://localhost/login | ログイン |
 
 ## ER図
 
-```
-categories          contacts              users
-──────────          ──────────────        ──────────
-id (PK)        ┌── id (PK)               id (PK)
-content        │   category_id (FK) ──┐  name
-created_at     │   first_name         │  email
-updated_at     └── last_name          │  password
-                   gender             │  created_at
-                   email              │  updated_at
-                   tel                │
-                   address            │
-                   building           │
-                   detail             │
-                   created_at         │
-                   updated_at         │
-                                      │
-categories ←──────────────────────────┘
-（1対多）
-```
+![ER図](er_diagram.html)
 
-```
-categories
-├── id (PK)
-├── content
-├── created_at
-└── updated_at
-
-contacts
-├── id (PK)
-├── category_id (FK -> categories.id)
-├── first_name
-├── last_name
-├── gender (1:男性 2:女性 3:その他)
-├── email
-├── tel
-├── address
-├── building (nullable)
-├── detail
-├── created_at
-└── updated_at
-
-users
-├── id (PK)
-├── name
-├── email
-├── password
-├── email_verified_at
-├── remember_token
-├── created_at
-└── updated_at
-```
+詳細は `er_diagram.html` をブラウザで開いてご確認ください。
