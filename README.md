@@ -9,8 +9,8 @@
 ### 1. リポジトリのクローン
 
 ```bash
-git clone https://github.com/hkentikushi-a11y/coachtech-furima.git
-cd coachtech-furima
+git clone https://github.com/hkentikushi-a11y/bookshelf.git
+cd bookshelf
 ```
 
 ### 2. .env ファイルの作成
